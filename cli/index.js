@@ -30,6 +30,9 @@ var argv = require('yargs')
         default: false,
         description: 'If false, warnings are disabled and the bundle is minified'
       })
+      .option('sourcemap-output', {
+        description: 'If provided file name will store a resulting sourcemap'
+      })
       .help('help')
       .argv
 
@@ -47,6 +50,10 @@ var argv = require('yargs')
       '--assets-dest', buildDir,
       '--platform', 'ios',
     ];
+
+    if (argv.sourcemapOutput) {
+      options.push('--sourcemap-output', argv.sourcemapOutput);
+    }
 
     var cmds = [
       'node node_modules/react-native/local-cli/cli.js bundle ' + options.join(' '),
